@@ -1,0 +1,198 @@
+// dispay data from zustand to any normal component 
+
+
+
+// increase the value by 1 on every click using zustand
+
+// ZustandStore.jsx
+
+import { create } from "zustand";
+
+const useStore = create((set) => ({
+  c: 0,
+  increase: () => set((state) => ({ c: state.c + 1 })),
+}));
+
+export default useStore;
+
+
+// A.jsx     // Component where i am using the Zustand 
+
+import React from "react";
+import useStore from "./ZustandStore";
+
+function A() {
+  const c = useStore((state) => state.c);
+  const increase = useStore((state) => state.increase);
+
+  return (
+    <div>
+      <h1>{c} </h1>
+      <button onClick={increase}>Increase</button>
+    </div>
+  );
+}
+
+export default A;
+
+
+
+// removeAll the value which we achieve during incrementing
+
+
+// 1.
+
+import { create } from "zustand";
+
+const useStore = create((set) => ({
+  c: 0,
+  increase: () => set((state) => ({ c: state.c + 1 })),
+  removeAll: () => set({ c: 0 }),
+}));
+
+export default useStore;
+
+// 2. 
+
+
+import React from "react";
+import useStore from "./ZustandStore";
+
+function A() {
+  const c = useStore((state) => state.c);
+  const increase = useStore((state) => state.increase);
+  const removeAll = useStore((state) => state.removeAll);
+
+  return (
+    <div>
+      <h1>{c} </h1>
+      <button onClick={increase}>Increase</button>
+      <button onClick={removeAll}>removeAll</button>
+    </div>
+  );
+}
+
+export default A;
+
+
+//  use decrement with increment and removeAll
+
+
+// 1.
+
+import { create } from "zustand";
+
+const useStore = create((set) => ({
+  c: 0,
+  increase: () => set((state) => ({ c: state.c + 1 })),
+  decrease: () => set((state) => ({ c: state.c - 1 })),
+  removeAll: () => set({ c: 0 }),
+}));
+
+export default useStore;
+
+
+// 2. 
+
+import React from "react";
+import useStore from "./ZustandStore";
+
+function A() {
+  const c = useStore((state) => state.c);
+  const increase = useStore((state) => state.increase);
+  const decrease = useStore((state) => state.decrease);
+  const removeAll = useStore((state) => state.removeAll);
+
+  return (
+    <div>
+      <h1>{c} </h1>
+      <button onClick={increase}>Increase</button> <br></br>
+      <button onClick={decrease}>decrease</button> <br></br>
+      <button onClick={removeAll}>removeAll</button>
+    </div>
+  );
+}
+
+export default A;
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// App.jsx
+
+import A from "./A";
+import A1 from "./A1";
+import "./App.css";
+function App() {
+  return (
+    <>
+      <A></A>
+      <A1></A1>
+    </>
+  );
+}
+export default App;
+
+
+//  set the object and use it for any component
+
+
+import { create } from "zustand";
+
+const useStore = create((set) => ({
+  data: {},
+  setData: (newData) => set((state) => ({ data: newData })),
+}));
+
+export default useStore;
+
+
+// A.jsx  =====================================================================================================
+
+
+import React from "react";
+import useStore from "./ZustandStore";
+
+function A() {
+  const data = useStore((state) => state.data);
+  const setData = useStore((state) => state.setData);
+
+  const handleSetData = () => {
+    setData({ a: 1, b: 2 });
+  };
+
+  console.log(JSON.stringify(data));
+  console.log(data.a);
+
+  return (
+    <div>
+      <h1>{JSON.stringify(data)}</h1>
+      <button onClick={handleSetData}>Set Data</button>
+    </div>
+  );
+}
+
+export default A;
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// A1.jsx
+
+import React from "react";
+import useStore from "./ZustandStore";
+
+function A1() {
+  const data = useStore((state) => state.data);
+  return (
+    <div>
+      <h1>{JSON.stringify(data)}</h1>
+    </div>
+  );
+}
+
+export default A1;
+
+
+
+
+
