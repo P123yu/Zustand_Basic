@@ -85,6 +85,8 @@ import useStore from "./Zustand";
 const ComponentB = () => {
   const { data1, data2 } = useStore();
 
+console.log(data1);
+
   return (
     <div>
       <h2>Data 1 in Component B: {JSON.stringify(data1)}</h2>
